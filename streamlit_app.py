@@ -2,39 +2,39 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
+import gensim
 
-"""
-# Welcome to Streamlit!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+st.title("言葉の足し算＆引き算")
+st.text("\
+ 言葉の足し算引き算を行います。\n\
+ 足し算したい言葉と引き算したい言葉を入力してください。\n\
+ スペースを開けることで複数個入力することができます。")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+positiveWord = st.text_input("足し算したい言葉を入力")
+negativeWord = st.text_input("引き算したい言葉を入力")
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+@st.cache_data
+def modelInit():
+    model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+    return model
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+model = modelInit()
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+if st.button("計算"):
+    p = positiveWord.split("　")
+    n = negativeWord.split("　")
+    flag = 0
+    try:
+        if not(p[0] == "") and not(n[0] == "") :
+            st.write(model.most_similar(positive=p.copy(), negative=n.copy()))
+        if not(p[0] == "") and n[0] == "" :
+            st.write(model.most_similar(positive=p.copy()))
+        if  p[0] == "" and not(n[0] == "") :
+            st.write(model.most_similar(negative=n.copy()))
+        if p[0] == "" and n[0] == "" :
+            st.text("何も入力されていません")
+    except:
+        st.write("学習データに無い言葉のようです……")
+        
