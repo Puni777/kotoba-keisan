@@ -4,13 +4,15 @@ import pandas as pd
 import streamlit as st
 import gensim
 
+a=1
 modelName = st.selectbox(
     "モデルを選択",
     ["日本語 Wikipedia エンティティベクトル2017",
-     "chiVe"]
+     "chiVe",
+     "fastText_Wikipedia 2017"]
 )
 
-modelDict = {"日本語 Wikipedia エンティティベクトル2017":0, "chiVe":1}
+modelDict = {"日本語 Wikipedia エンティティベクトル2017":0, "chiVe":1, "fastText_Wikipedia 2017":2}
 
 
 st.title("言葉の足し算＆引き算")
@@ -30,6 +32,8 @@ def modelInit(num):
         model = gensim.models.KeyedVectors.load_word2vec_format('./models/entity_vector.model.bin', binary=True)
     if num == 1:
         model = gensim.models.KeyedVectors.load("./models/chive-1.3-mc5.kv")
+    if num == 2:
+        model = gensim.models.KeyedVectors.load_word2vec_format('./models/fastText_model.vec', binary=False)
     return model
 
 model = modelInit(modelDict[modelName])
