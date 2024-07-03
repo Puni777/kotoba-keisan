@@ -1,0 +1,14 @@
+・日本語 Wikipedia エンティティベクトル2017
+東北大学が公開してるモデル。あんまり精度はよくない。
+→https://www.cl.ecei.tohoku.ac.jp/~m-suzuki/jawiki_vector/
+
+・chiVe
+有名なモデルらしい。とりあえず一番大きいのを選んでみた。
+→https://github.com/WorksApplications/chiVe
+
+・fastText_Wikipedia 2017
+Qiitaの記事でモデルを公開している人がいた。Wikipedia2017を学習しているらしいので東北大と同じデータ元と考えられるが、結構精度が良い。
+→https://qiita.com/Hironsan/items/513b9f93752ecee9e670
+
+googledriveで共有します。容量が大きいので注意。
+→https://drive.google.com/drive/folders/12YvqgdpNq6qwqetbKx73BPofzVTKRhwk?usp=sharing
