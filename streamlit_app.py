@@ -10,7 +10,7 @@ modelName = st.selectbox(
     ["東北大学_Wikipedia 2017",
      "chiVe_CommonCrawl",
      "@Hironsan_Wikipedia 2017",
-     "@Frq09_Wikipedia 2023"]
+     "@Frq09_Wikipedia 2023"],
 )
 
 modelDict = {"東北大学_Wikipedia 2017":0, 
@@ -29,8 +29,7 @@ st.text("\
 positiveWord = st.text_input("足し算したい言葉を入力")
 negativeWord = st.text_input("引き算したい言葉を入力")
 
-@st.cache_data
-
+@st.cache_resource(max_entries=1)
 def modelInit(num):
     if num == 0:
         model = gensim.models.KeyedVectors.load_word2vec_format('./models/entity_vector.model.bin', binary=True)
@@ -41,6 +40,8 @@ def modelInit(num):
     if num == 3:
         model = gensim.models.KeyedVectors.load('./models/2023-03-01-word2vec.model')
     return model
+
+
 
 model = modelInit(modelDict[modelName])
 

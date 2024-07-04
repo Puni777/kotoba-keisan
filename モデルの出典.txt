@@ -4,6 +4,7 @@
 
 ・chiVe_CommonCrawl
 有名なモデルらしい。とりあえず一番大きいのを選んでみた。動作が重い。
+正規化表現なるものを用いているので、"りんご"は使えず、"林檎"なら使える。
 →https://github.com/WorksApplications/chiVe
 
 ・@Hironsan_Wikipedia 2017
