@@ -4,7 +4,6 @@ import pandas as pd
 import streamlit as st
 import gensim
 
-a=1
 modelName = st.selectbox(
     "モデルを選択",
     ["東北大学_Wikipedia 2017",
