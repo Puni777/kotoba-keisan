@@ -7,12 +7,16 @@ import gensim
 a=1
 modelName = st.selectbox(
     "モデルを選択",
-    ["日本語 Wikipedia エンティティベクトル2017",
-     "chiVe",
-     "fastText_Wikipedia 2017"]
+    ["東北大学_Wikipedia 2017",
+     "chiVe_CommonCrawl",
+     "@Hironsan_Wikipedia 2017",
+     "@Frq09_Wikipedia 2023"]
 )
 
-modelDict = {"日本語 Wikipedia エンティティベクトル2017":0, "chiVe":1, "fastText_Wikipedia 2017":2}
+modelDict = {"東北大学_Wikipedia 2017":0, 
+             "chiVe_CommonCrawl":1, 
+             "@Hironsan_Wikipedia 2017":2,
+             "@Frq09_Wikipedia 2023":3}
 
 
 st.title("言葉の足し算＆引き算")
@@ -34,6 +38,8 @@ def modelInit(num):
         model = gensim.models.KeyedVectors.load("./models/chive-1.3-mc5.kv")
     if num == 2:
         model = gensim.models.KeyedVectors.load_word2vec_format('./models/fastText_model.vec', binary=False)
+    if num == 3:
+        model = gensim.models.KeyedVectors.load('./models/2023-03-01-word2vec.model')
     return model
 
 model = modelInit(modelDict[modelName])
@@ -43,14 +49,24 @@ if st.button("計算"):
     n = negativeWord.split("　")
     flag = 0
     try:
-        if not(p[0] == "") and not(n[0] == "") :
-            st.write(model.most_similar(positive=p.copy(), negative=n.copy()))
-        if not(p[0] == "") and n[0] == "" :
-            st.write(model.most_similar(positive=p.copy()))
-        if  p[0] == "" and not(n[0] == "") :
-            st.write(model.most_similar(negative=n.copy()))
-        if p[0] == "" and n[0] == "" :
-            st.text("何も入力されていません")
+        if modelDict[modelName] == 3:
+            if not(p[0] == "") and not(n[0] == "") :
+                st.write(model.wv.most_similar(positive=p.copy(), negative=n.copy()))
+            if not(p[0] == "") and n[0] == "" :
+                st.write(model.wv.most_similar(positive=p.copy()))
+            if  p[0] == "" and not(n[0] == "") :
+                st.write(model.wv.most_similar(negative=n.copy()))
+            if p[0] == "" and n[0] == "" :
+                st.text("何も入力されていません")
+        else:
+            if not(p[0] == "") and not(n[0] == "") :
+                st.write(model.most_similar(positive=p.copy(), negative=n.copy()))
+            if not(p[0] == "") and n[0] == "" :
+                st.write(model.most_similar(positive=p.copy()))
+            if  p[0] == "" and not(n[0] == "") :
+                st.write(model.most_similar(negative=n.copy()))
+            if p[0] == "" and n[0] == "" :
+                st.text("何も入力されていません")
     except:
         st.write("学習データに無い言葉のようです……")
         
