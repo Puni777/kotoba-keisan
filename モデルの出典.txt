@@ -15,5 +15,7 @@ Qiitaの記事でモデルを公開している人がいた。Wikipedia2017を�
 githubでモデルを公開している人がいた。Wikipedia2023を学習している。おそらくこれが拾える中で一番精度の良いモデル。
 →https://frqux.hatenablog.com/entry/2023/03/12/165640#%E5%AE%9F%E9%A8%93
 
-googledriveで共有します。容量が大きいので注意。
+googledriveで共有します。容量が大きいので注意。modelsフォルダをstreamlit_app.pyと同じ階層に入れてください。
 →https://drive.google.com/drive/folders/12YvqgdpNq6qwqetbKx73BPofzVTKRhwk?usp=sharing
+
+python3.8.10で作成しました。最新のpythonだとうまくいかない可能性があります。
