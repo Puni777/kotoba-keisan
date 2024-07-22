@@ -15,6 +15,13 @@ Qiitaの記事でモデルを公開している人がいた。Wikipedia2017を�
 githubでモデルを公開している人がいた。Wikipedia2023を学習している。おそらくこれが拾える中で一番精度の良いモデル。
 →https://frqux.hatenablog.com/entry/2023/03/12/165640#%E5%AE%9F%E9%A8%93
 
+・GoogleNews (English)
+Google ニュース データセット (約 1,000 億語) の一部でトレーニングされた事前トレーニング済みのベクトルを公開しています。
+このモデルには、300 万語の単語とフレーズの 300 次元ベクトルが含まれています。
+フレーズは、で説明されているシンプルなデータ駆動型アプローチを使用して取得されました。
+とのこと
+→https://code.google.com/archive/p/word2vec/
+
 googledriveで共有します。容量が大きいので注意。modelsフォルダをstreamlit_app.pyと同じ階層に入れてください。
 →https://drive.google.com/drive/folders/12YvqgdpNq6qwqetbKx73BPofzVTKRhwk?usp=sharing
 

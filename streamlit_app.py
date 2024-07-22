@@ -3,19 +3,22 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import gensim
+import re
 
 modelName = st.selectbox(
     "モデルを選択",
     ["東北大学_Wikipedia 2017",
      "chiVe_CommonCrawl",
      "@Hironsan_Wikipedia 2017",
-     "@Frq09_Wikipedia 2023"],
+     "@Frq09_Wikipedia 2023",
+     "GoogleNews (English)"],
 )
 
 modelDict = {"東北大学_Wikipedia 2017":0, 
              "chiVe_CommonCrawl":1, 
              "@Hironsan_Wikipedia 2017":2,
-             "@Frq09_Wikipedia 2023":3}
+             "@Frq09_Wikipedia 2023":3,
+             "GoogleNews (English)":4}
 
 
 st.title("言葉の足し算＆引き算")
@@ -38,6 +41,8 @@ def modelInit(num):
         model = gensim.models.KeyedVectors.load_word2vec_format('./models/fastText_model.vec', binary=False)
     if num == 3:
         model = gensim.models.KeyedVectors.load('./models/2023-03-01-word2vec.model')
+    if num == 4:
+        model = gensim.models.KeyedVectors.load_word2vec_format("models\GoogleNews-vectors-negative300.bin",binary=True)
     return model
 
 
@@ -45,8 +50,10 @@ def modelInit(num):
 model = modelInit(modelDict[modelName])
 
 if st.button("計算"):
-    p = positiveWord.split("　")
-    n = negativeWord.split("　")
+    p = positiveWord.replace(" ","　")
+    n = negativeWord.replace(" ","　")
+    p = p.split("　")
+    n = n.split("　")
     flag = 0
     try:
         if modelDict[modelName] == 3:
